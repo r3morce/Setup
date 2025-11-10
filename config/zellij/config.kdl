@@ -11,5 +11,10 @@ session_serialization true
 keybinds {
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }
+        bind "Alt [" { PreviousSwapLayout; }
+        bind "Alt ]" { NextSwapLayout; }
+    }
+    pane {
+        bind "Tab" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
     }
 }
