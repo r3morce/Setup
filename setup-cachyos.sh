@@ -67,7 +67,7 @@ EOF
 # Install functions
 install_tool() {
     local tool="$1"
-    local script="$SCRIPT_DIR/install/${tool}.sh"
+    local script="$SCRIPT_DIR/install/cachyos/${tool}.sh"
     
     if [ -f "$script" ]; then
         print_info "Installing $tool..."

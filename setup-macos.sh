@@ -41,8 +41,8 @@ Commands:
     install [TOOL]
         Install packages and tools via Homebrew
         Tools: all, homebrew, packages, zsh, neovim, git, bat, eza, duf, ripgrep, 
-               fzf, zoxide, docker-compose, zellij, wezterm, nodejs, lazygit, 
-               github-cli, fastfetch, gping, wget, unzip, unrar
+               fzf, zoxide, docker-compose, zellij, wezterm, gcc, node, lazygit, 
+               gh, fastfetch, gping, wget, unzip, unrar
         
     config [TOOL]
         Deploy configuration files
@@ -86,115 +86,63 @@ install_homebrew() {
     print_success "Homebrew installed successfully"
 }
 
-# Install packages using Homebrew
-install_with_brew() {
-    local package="$1"
-    local cask="${2:-false}"
+# Install functions
+install_tool() {
+    local tool="$1"
+    local script="$SCRIPT_DIR/install/macos/${tool}.sh"
     
-    if [ "$cask" = "true" ]; then
-        if brew list --cask "$package" &>/dev/null; then
-            print_success "$package is already installed"
-        else
-            print_info "Installing $package..."
-            brew install --cask "$package"
-            print_success "$package installed"
-        fi
+    if [ -f "$script" ]; then
+        print_info "Installing $tool..."
+        "$script"
+        print_success "$tool installed"
     else
-        if brew list "$package" &>/dev/null; then
-            print_success "$package is already installed"
-        else
-            print_info "Installing $package..."
-            brew install "$package"
-            print_success "$package installed"
-        fi
+        print_error "Install script not found: $tool"
+        exit 1
     fi
 }
 
-# Install CLI tools
 install_packages() {
     print_info "Installing essential packages..."
     
     # CLI tools
-    install_with_brew "bat"
-    install_with_brew "eza"
-    install_with_brew "duf"
-    install_with_brew "ripgrep"
-    install_with_brew "fzf"
-    install_with_brew "zoxide"
+    install_tool "bat"
+    install_tool "eza"
+    install_tool "duf"
+    install_tool "ripgrep"
+    install_tool "fzf"
+    install_tool "zoxide"
     
     # Development tools
-    install_with_brew "docker-compose"
-    install_with_brew "zellij"
-    install_with_brew "wezterm" "true"  # Cask for GUI app
-    install_with_brew "node"
+    install_tool "docker-compose"
+    install_tool "zellij"
+    install_tool "wezterm"
+    install_tool "gcc"
+    install_tool "node"
     
     # Git tools
-    install_with_brew "lazygit"
-    install_with_brew "gh"
+    install_tool "lazygit"
+    install_tool "gh"
     
     # Utilities
-    install_with_brew "fastfetch"
-    install_with_brew "gping"
-    install_with_brew "wget"
+    install_tool "fastfetch"
+    install_tool "gping"
+    install_tool "wget"
+    install_tool "unzip"
+    install_tool "unrar"
     
     print_success "All packages installed!"
 }
 
-# Install ZSH and plugins
 install_zsh() {
-    print_info "Installing ZSH..."
-    
-    # ZSH comes pre-installed on macOS, but ensure it's the latest
-    install_with_brew "zsh"
-    
-    # Create plugins directory
-    mkdir -p "$HOME/.zsh/plugins"
-    
-    # Install zsh-autosuggestions
-    if [ ! -d "$HOME/.zsh/plugins/zsh-autosuggestions" ]; then
-        print_info "Installing zsh-autosuggestions..."
-        git clone https://github.com/zsh-users/zsh-autosuggestions \
-            "$HOME/.zsh/plugins/zsh-autosuggestions"
-    fi
-    
-    # Install zsh-syntax-highlighting
-    if [ ! -d "$HOME/.zsh/plugins/zsh-syntax-highlighting" ]; then
-        print_info "Installing zsh-syntax-highlighting..."
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting \
-            "$HOME/.zsh/plugins/zsh-syntax-highlighting"
-    fi
-    
-    # Install Powerlevel10k
-    install_with_brew "powerlevel10k"
-    
-    # Set ZSH as default shell if not already
-    if [ "$SHELL" != "$(which zsh)" ]; then
-        print_info "Setting ZSH as default shell..."
-        chsh -s "$(which zsh)"
-    fi
-    
-    print_success "ZSH installation complete!"
+    install_tool "zsh"
 }
 
-# Install Neovim
 install_neovim() {
-    print_info "Installing Neovim..."
-    install_with_brew "neovim"
-    print_success "Neovim installed"
+    install_tool "neovim"
 }
 
-# Install Git
 install_git() {
-    print_info "Installing Git..."
-    install_with_brew "git"
-    print_success "Git installed"
-}
-
-# Install Alacritty
-install_alacritty() {
-    print_info "Installing Alacritty..."
-    install_with_brew "alacritty" "true"
-    print_success "Alacritty installed"
+    install_tool "git"
 }
 
 # Install all
@@ -205,7 +153,6 @@ install_all() {
     install_zsh
     install_neovim
     install_git
-    install_alacritty
     print_success "All installation complete!"
 }
 
@@ -297,13 +244,9 @@ main() {
                     install_homebrew
                     install_git
                     ;;
-                alacritty)
+                bat|eza|duf|ripgrep|fzf|zoxide|docker-compose|zellij|wezterm|gcc|node|lazygit|gh|fastfetch|gping|wget|unzip|unrar)
                     install_homebrew
-                    install_alacritty
-                    ;;
-                bat|eza|duf|ripgrep|fzf|zoxide|docker-compose|zellij|wezterm|nodejs|lazygit|github-cli|fastfetch|gping|wget|unzip|unrar)
-                    install_homebrew
-                    install_with_brew "$tool"
+                    install_tool "$tool"
                     ;;
                 *)
                     print_error "Unknown install target: $tool"

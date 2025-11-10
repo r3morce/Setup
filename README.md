@@ -1,162 +1,103 @@
 # Development Environment Setup
 
-This repository contains dotfiles and automated setup scripts for quickly configuring a development environment on CachyOS (Arch Linux) and macOS.
+Script-based setup system for CachyOS and macOS.
 
 ## Quick Start
 
-### First Time Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone <your-repo-url> ~/Setup
-   cd ~/Setup
-   ```
-
-2. **Create your environment file:**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your personal information
-   nano .env
-   ```
-
-3. **Run full setup:**
-
-   **On macOS:**
-   ```bash
-   ./setup-macos.sh full
-   ```
-
-   **On CachyOS/Arch Linux:**
-   ```bash
-   ./setup-cachyos.sh full
-   ```
-
-## What's Included
-
-### Tools & Applications
-
-- **Shell:** ZSH with Powerlevel10k theme
-- **Editor:** Neovim with LazyVim configuration
-- **Terminal Emulators:** WezTerm, Alacritty
-- **Terminal Multiplexer:** Zellij
-- **CLI Tools:**
-  - `bat` - Modern cat replacement with syntax highlighting
-  - `eza` - Modern ls replacement
-  - `duf` - Disk usage utility
-  - `ripgrep` - Fast file content search
-  - `fzf` - Fuzzy finder
-  - `zoxide` - Smart cd replacement
-  - `lazygit` - Terminal UI for git
-  - `gh` - GitHub CLI
-  - `fastfetch` - System information
-  - `gping` - Ping with a graph
-
-### Configuration Files
-
-- **Alacritty:** `config/alacritty/alacritty.toml`
-- **WezTerm:** `config/wezterm/wezterm.lua`
-- **Zellij:** `config/zellij/config.kdl`
-- **ZSH:** `config/zsh/zshrc` and `config/zsh/p10k.zsh`
-- **Neovim:** `config/neovim/nvim/`
-
-## Usage
-
-### Install Specific Tools
+**CachyOS:**
+```bash
+cd ~/Setup
+./setup-cachyos.sh full
+```
 
 **macOS:**
 ```bash
-./setup-macos.sh install <tool>
+cd ~/Setup
+./setup-macos.sh full
 ```
 
-**CachyOS:**
+## Structure
+
+```
+~/Setup/
+├── setup-cachyos.sh          # CachyOS orchestrator
+├── setup-macos.sh            # macOS orchestrator
+├── install/
+│   ├── cachyos/              # Install scripts (pacman)
+│   └── macos/                # Install scripts (brew)
+├── scripts/                   # Config deployment
+├── config/                    # Configuration files
+└── backup/                    # Automatic backups
+```
+
+## Usage
+
+### Help
 ```bash
-./setup-cachyos.sh install <tool>
+./setup-cachyos.sh help
+./setup-macos.sh help
 ```
 
-Available tools: `all`, `homebrew` (macOS only), `packages`, `zsh`, `neovim`, `git`, `bat`, `eza`, etc.
-
-### Deploy Specific Configurations
-
+### Install
 ```bash
-./setup-macos.sh config <tool>    # macOS
-./setup-cachyos.sh config <tool>  # CachyOS
+# All tools
+./setup-cachyos.sh install all
+
+# Categories
+./setup-cachyos.sh install packages
+./setup-cachyos.sh install zsh
+./setup-cachyos.sh install neovim
+./setup-cachyos.sh install git
+
+# Individual tools
+./setup-cachyos.sh install bat
+./setup-cachyos.sh install ripgrep
 ```
 
-Available configs: `all`, `zsh`, `git`, `neovim`, `wezterm`, `alacritty`, `zellij`, `bat`
-
-### Examples
-
+### Configure
 ```bash
-# Install only Homebrew (macOS)
-./setup-macos.sh install homebrew
+# All configs
+./setup-cachyos.sh config all
 
-# Install all packages
-./setup-macos.sh install packages
-
-# Deploy only ZSH configuration
-./setup-macos.sh config zsh
-
-# Install specific tool
-./setup-macos.sh install bat
+# Individual configs
+./setup-cachyos.sh config zsh
+./setup-cachyos.sh config neovim
+./setup-cachyos.sh config git
 ```
 
-## Environment Variables
-
-The `.env` file contains sensitive information that should not be committed:
-
-- `GIT_USER_NAME` - Your Git username
-- `GIT_USER_EMAIL` - Your Git email
-- `SHELL_BROWSER` - Default browser
-- `SHELL_EDITOR` - Default editor
+### Full Setup
+```bash
+./setup-cachyos.sh full    # Install all + configure all
+```
 
 ## Platform Differences
 
-### macOS
-- Uses Homebrew as package manager
-- GUI apps installed as casks
-- Powerlevel10k installed via Homebrew
+**CachyOS:**
+- Package manager: `pacman`
+- Scripts: `install/cachyos/`
 
-### CachyOS/Arch Linux
-- Uses pacman as package manager
-- Powerlevel10k installed from AUR/repos
-- Some additional AUR packages may be required
+**macOS:**
+- Package manager: `brew`
+- Scripts: `install/macos/`
+- Requires Homebrew installation
+
+**Shared:**
+- Configuration files: `config/`
+- Deployment scripts: `scripts/`
 
 ## Backup
 
-All deployment scripts automatically create timestamped backups in the `backup/` directory before overwriting existing configurations.
+All deployments create timestamped backups in `backup/` before overwriting configs.
 
-## Manual Steps
+## Available Tools
 
-Some steps may require manual intervention:
-
-1. **ZSH as default shell:** May require logging out and back in
-2. **Terminal font:** Install a Nerd Font for proper icon display
-3. **GitHub authentication:** Run `gh auth login` after installation
-
-## Troubleshooting
-
-### macOS: Command not found after installation
-Make sure to restart your terminal or run:
+List all tools:
 ```bash
-source ~/.zshrc
+ls install/cachyos/    # CachyOS
+ls install/macos/      # macOS
 ```
 
-### Powerlevel10k not loading
-Ensure you've restarted your terminal and run:
+Inspect installation:
 ```bash
-p10k configure
+cat install/cachyos/bat.sh
 ```
-
-### Git config not applied
-Make sure `.env` file exists and contains your information, then run:
-```bash
-./scripts/deploy-git.sh
-```
-
-## Contributing
-
-Feel free to customize any configuration files to match your preferences. The setup scripts are designed to be idempotent and can be run multiple times safely.
-
-## License
-
-Personal dotfiles - use freely.
