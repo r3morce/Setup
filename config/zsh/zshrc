@@ -41,8 +41,17 @@ eval "$(zoxide init zsh)"
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# p10k
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# p10k - Load from different locations depending on OS
+if [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    # Linux (CachyOS/Arch)
+    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    # macOS (Apple Silicon)
+    source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    # macOS (Intel)
+    source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
+fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NVM_DIR="$HOME/.config/nvm"
