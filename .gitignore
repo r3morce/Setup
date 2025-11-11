@@ -84,3 +84,4 @@ test-results/
 
 # Backups (keep structure but ignore specific backup files)
 backup/**/*.bak.*
+backup/*
