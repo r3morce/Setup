@@ -1,7 +1,19 @@
+# Detect OS
+OS := $(shell uname -s)
+ifeq ($(OS),Darwin)
+	SCRIPT_DIR := scripts/macos
+	OS_NAME := macOS
+else
+	SCRIPT_DIR := scripts/cachyos
+	OS_NAME := CachyOS
+endif
+
 .PHONY: full setup clean-configs backup help
 
 help:
-	@echo "CachyOS Setup"
+	@echo "$(OS_NAME) Setup"
+	@echo ""
+	@echo "Detected OS: $(OS_NAME)"
 	@echo ""
 	@echo "Targets:"
 	@echo "  full              Complete setup (wipes configs)"
@@ -12,20 +24,20 @@ help:
 	@echo ""
 
 full:
-	@./scripts/install-packages.sh
-	@./scripts/clean-configs.sh
-	@./scripts/setup-configs.sh
-	@./scripts/setup-git.sh
+	@./$(SCRIPT_DIR)/install-packages.sh || echo "Some packages may have failed to install, continuing..."
+	@./$(SCRIPT_DIR)/clean-configs.sh
+	@./$(SCRIPT_DIR)/setup-configs.sh
+	@./$(SCRIPT_DIR)/setup-git.sh
 	@echo "Full setup complete. Restart terminal."
 
 setup:
-	@./scripts/clean-configs.sh
-	@./scripts/setup-configs.sh
-	@./scripts/setup-git.sh
+	@./$(SCRIPT_DIR)/clean-configs.sh
+	@./$(SCRIPT_DIR)/setup-configs.sh
+	@./$(SCRIPT_DIR)/setup-git.sh
 	@echo "Setup complete. Restart terminal."
 
 clean-configs:
-	@./scripts/clean-configs.sh
+	@./$(SCRIPT_DIR)/clean-configs.sh
 
 backup:
-	@./scripts/backup-configs.sh
+	@./$(SCRIPT_DIR)/backup-configs.sh

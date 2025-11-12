@@ -3,8 +3,8 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -f "$SCRIPT_DIR/../.env" ]; then
-    source "$SCRIPT_DIR/../.env"
+if [ -f "$SCRIPT_DIR/../../.env" ]; then
+    source "$SCRIPT_DIR/../../.env"
     echo "Configuring git..."
     git config --global user.name "$GIT_USER_NAME"
     git config --global user.email "$GIT_USER_EMAIL"

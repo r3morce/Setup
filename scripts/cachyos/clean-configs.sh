@@ -2,7 +2,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-STOW_DIR="$(realpath "$SCRIPT_DIR/../stow-packages")"
+STOW_DIR="$(realpath "$SCRIPT_DIR/../../stow-packages")"
 
 echo "Removing existing configurations..."
 
@@ -12,7 +12,6 @@ configs=(
     "$HOME/.p10k.zsh"
     "$HOME/.config/nvim"
     "$HOME/.wezterm.lua"
-    "$HOME/.config/alacritty.toml"
     "$HOME/.config/zellij"
     "$HOME/.config/config.kdl"
     "$HOME/.config/dev"

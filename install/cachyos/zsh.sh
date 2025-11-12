@@ -1,40 +1,40 @@
 #!/bin/bash
-# Install and configure ZSH with Oh My Zsh and Powerlevel10k
+# Install zsh - Z shell
 
 set -e
 
-echo "==> Installing ZSH..."
+echo "==> Installing zsh..."
 
-# Install zsh if not present
 if ! pacman -Q zsh &>/dev/null; then
     sudo pacman -S --noconfirm zsh
+    echo "zsh installed successfully"
+else
+    echo "zsh is already installed"
 fi
 
-# Install Oh My Zsh if not present
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    echo "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# Install zsh plugins
+echo "==> Installing zsh plugins..."
+
+if ! pacman -Q zsh-autosuggestions &>/dev/null; then
+    sudo pacman -S --noconfirm zsh-autosuggestions
+    echo "zsh-autosuggestions installed successfully"
+else
+    echo "zsh-autosuggestions is already installed"
 fi
 
-# Install Powerlevel10k theme
-if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
-    echo "Installing Powerlevel10k theme..."
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+if ! pacman -Q zsh-syntax-highlighting &>/dev/null; then
+    sudo pacman -S --noconfirm zsh-syntax-highlighting
+    echo "zsh-syntax-highlighting installed successfully"
+else
+    echo "zsh-syntax-highlighting is already installed"
 fi
 
-# Install zsh-autosuggestions plugin
-if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
-    echo "Installing zsh-autosuggestions..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions \
-        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-fi
-
-# Install zsh-syntax-highlighting plugin
-if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]; then
-    echo "Installing zsh-syntax-highlighting..."
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting \
-        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+# Install powerlevel10k theme
+if ! pacman -Q zsh-theme-powerlevel10k &>/dev/null; then
+    sudo pacman -S --noconfirm zsh-theme-powerlevel10k
+    echo "powerlevel10k theme installed successfully"
+else
+    echo "powerlevel10k theme is already installed"
 fi
 
 # Set ZSH as default shell if not already

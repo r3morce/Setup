@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo "Installing packages..."
 
@@ -24,5 +23,6 @@ echo "Installing packages..."
 . ./install/cachyos/wget.sh
 . ./install/cachyos/unzip.sh
 . ./install/cachyos/unrar.sh
+. ./install/cachyos/yazi.sh
 
 echo "All packages installed"
