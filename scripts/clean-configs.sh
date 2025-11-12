@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-STOW_DIR="$(realpath "$SCRIPT_DIR/../../stow-packages")"
-
 echo "Removing existing configurations..."
 
 # Remove existing configs that might conflict with stow

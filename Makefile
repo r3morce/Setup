@@ -1,10 +1,10 @@
 # Detect OS
 OS := $(shell uname -s)
 ifeq ($(OS),Darwin)
-	SCRIPT_DIR := scripts/macos
+	SUFFIX := macos
 	OS_NAME := macOS
 else
-	SCRIPT_DIR := scripts/cachyos
+	SUFFIX := cachyos
 	OS_NAME := CachyOS
 endif
 
@@ -24,20 +24,18 @@ help:
 	@echo ""
 
 full:
-	@./$(SCRIPT_DIR)/install-packages.sh || echo "Some packages may have failed to install, continuing..."
-	@./$(SCRIPT_DIR)/clean-configs.sh
-	@./$(SCRIPT_DIR)/setup-configs.sh
-	@./$(SCRIPT_DIR)/setup-git.sh
+	@./scripts/install-packages-$(SUFFIX).sh || echo "Some packages may have failed to install, continuing..."
+	@./scripts/clean-configs.sh
+	@./scripts/setup-configs.sh
 	@echo "Full setup complete. Restart terminal."
 
 setup:
-	@./$(SCRIPT_DIR)/clean-configs.sh
-	@./$(SCRIPT_DIR)/setup-configs.sh
-	@./$(SCRIPT_DIR)/setup-git.sh
+	@./scripts/clean-configs.sh
+	@./scripts/setup-configs.sh
 	@echo "Setup complete. Restart terminal."
 
 clean-configs:
-	@./$(SCRIPT_DIR)/clean-configs.sh
+	@./scripts/clean-configs.sh
 
 backup:
-	@./$(SCRIPT_DIR)/backup-configs.sh
+	@./scripts/backup-configs.sh

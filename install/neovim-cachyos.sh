@@ -11,7 +11,7 @@ if ! pacman -Q neovim &>/dev/null; then
 fi
 
 # Install dependencies for LazyVim
-DEPS=(gcc nodejs npm)
+DEPS=(nodejs npm)
 
 for dep in "${DEPS[@]}"; do
     if ! pacman -Q "$dep" &>/dev/null; then

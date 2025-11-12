@@ -1,10 +1,11 @@
 #!/bin/bash
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-if [ -f "$SCRIPT_DIR/../../.env" ]; then
-    source "$SCRIPT_DIR/../../.env"
+# Change to script directory so relative paths work correctly
+# This ensures ../.env path works regardless of where script is called from
+cd "$(dirname "$0")"
+if [ -f ../.env ]; then
+    source ../.env
     echo "Configuring git..."
     git config --global user.name "$GIT_USER_NAME"
     git config --global user.email "$GIT_USER_EMAIL"

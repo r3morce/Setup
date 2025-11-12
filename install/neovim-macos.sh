@@ -18,16 +18,13 @@ else
 fi
 
 # Install dependencies for LazyVim
-DEPS=(gcc nodejs npm)
+DEPS=(nodejs npm)
 
 for dep in "${DEPS[@]}"; do
     if ! command -v "$dep" &>/dev/null; then
         echo "Installing $dep..."
         if command -v brew &>/dev/null; then
             case $dep in
-                "gcc")
-                    brew install gcc
-                    ;;
                 "nodejs")
                     brew install node
                     ;;

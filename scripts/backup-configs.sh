@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_DIR="$SCRIPT_DIR/../../backup/backup-$(date +%Y%m%d-%H%M%S)"
+# Change to script directory so relative paths work correctly
+# This ensures ../backup/ path works regardless of where script is called from
+cd "$(dirname "$0")"
+BACKUP_DIR="../backup/backup-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$BACKUP_DIR"
 
 echo "Backing up configs to: $BACKUP_DIR"
