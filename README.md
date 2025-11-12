@@ -1,103 +1,66 @@
 # Development Environment Setup
 
-Script-based setup system for CachyOS and macOS.
+Script-based setup system for CachyOS and macOS using Make.
 
 ## Quick Start
 
-**CachyOS:**
+**Clone and setup:**
 ```bash
+git clone https://github.com/r3morce/Setup.git ~/Setup
 cd ~/Setup
-./setup-cachyos.sh full
-```
-
-**macOS:**
-```bash
-cd ~/Setup
-./setup-macos.sh full
+make full
 ```
 
 ## Structure
 
 ```
 ~/Setup/
-├── setup-cachyos.sh          # CachyOS orchestrator
-├── setup-macos.sh            # macOS orchestrator
-├── install/
-│   ├── cachyos/              # Install scripts (pacman)
-│   └── macos/                # Install scripts (brew)
-├── scripts/                   # Config deployment
-├── config/                    # Configuration files
-└── backup/                    # Automatic backups
+├── Makefile                   # Main orchestrator with OS detection
+├── install/                   # Individual package installers
+│   └── ... (one per package per OS)
+├── scripts/                   # Configuration management
+├── stow-packages/            # Configuration files for stow
+└── backup/                   # Automatic backups
 ```
 
 ## Usage
 
-### Help
 ```bash
-./setup-cachyos.sh help
-./setup-macos.sh help
-```
-
-### Install
-```bash
-# All tools
-./setup-cachyos.sh install all
-
-# Categories
-./setup-cachyos.sh install packages
-./setup-cachyos.sh install zsh
-./setup-cachyos.sh install neovim
-./setup-cachyos.sh install git
-
-# Individual tools
-./setup-cachyos.sh install bat
-./setup-cachyos.sh install ripgrep
-```
-
-### Configure
-```bash
-# All configs
-./setup-cachyos.sh config all
-
-# Individual configs
-./setup-cachyos.sh config zsh
-./setup-cachyos.sh config neovim
-./setup-cachyos.sh config git
-```
-
-### Full Setup
-```bash
-./setup-cachyos.sh full    # Install all + configure all
+make full              # Complete setup (install + configure)
+make setup             # Apply configurations only
+make clean-configs     # Remove existing configs
+make backup            # Backup existing configs
 ```
 
 ## Platform Differences
 
 **CachyOS:**
-- Package manager: `pacman`
-- Scripts: `install/cachyos/`
+- Package manager: `pacman` (system package manager)
+- Uses `install-packages-cachyos.sh` to orchestrate installations
+- First installs: **Zsh shell** with plugins (zsh-autosuggestions, zsh-syntax-highlighting) and powerlevel10k theme
+- Sets Zsh as default shell automatically
+- Then installs all other tools (neovim, git, bat, eza, etc.)
 
 **macOS:**
-- Package manager: `brew`
-- Scripts: `install/macos/`
-- Requires Homebrew installation
+- Package manager: `brew` (Homebrew)
+- Uses `install-packages-macos.sh` to orchestrate installations  
+- Zsh is typically already installed on macOS
 
 **Shared:**
-- Configuration files: `config/`
-- Deployment scripts: `scripts/`
+- Configuration deployment: `setup-configs.sh` (uses stow to symlink configs)
+- Git configuration: `setup-git.sh` (reads from .env file)
+- Backup system: `backup-configs.sh` (timestamped backups)
+- Config cleanup: `clean-configs.sh` (removes existing configs)
 
-## Backup
+## Available Packages
 
-All deployments create timestamped backups in `backup/` before overwriting configs.
-
-## Available Tools
-
-List all tools:
+List all available packages:
 ```bash
-ls install/cachyos/    # CachyOS
-ls install/macos/      # macOS
+ls install/ | grep -E "(cachyos|macos)" | sort | uniq
 ```
 
-Inspect installation:
+Inspect individual package installation:
 ```bash
-cat install/cachyos/bat.sh
+cat install/bat-cachyos.sh
+cat install/neovim-macos.sh
 ```
