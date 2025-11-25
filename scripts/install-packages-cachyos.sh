@@ -14,7 +14,6 @@ cd "$(dirname "$0")"
 . ../install/fzf-cachyos.sh
 . ../install/zoxide-cachyos.sh
 . ../install/docker-compose-cachyos.sh
-. ../install/zellij-cachyos.sh
 . ../install/wezterm-cachyos.sh
 . ../install/lazygit-cachyos.sh
 . ../install/github-cli-cachyos.sh

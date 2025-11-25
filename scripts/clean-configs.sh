@@ -9,7 +9,6 @@ configs=(
     "$HOME/.p10k.zsh"
     "$HOME/.config/nvim"
     "$HOME/.wezterm.lua"
-    "$HOME/.config/zellij"
     "$HOME/.config/config.kdl"
     "$HOME/.config/dev"
     "$HOME/.config/layouts"

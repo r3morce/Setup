@@ -9,7 +9,7 @@ mkdir -p "$BACKUP_DIR"
 
 echo "Backing up configs to: $BACKUP_DIR"
 
-for path in "$HOME/.zshrc" "$HOME/.p10k.zsh" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.config/nvim" "$HOME/.wezterm.lua" "$HOME/.config/wezterm" "$HOME/.config/zellij" "$HOME/.config/bat"; do
+for path in "$HOME/.zshrc" "$HOME/.p10k.zsh" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.config/nvim" "$HOME/.wezterm.lua" "$HOME/.config/wezterm" "$HOME/.config/bat"; do
     if [ -e "$path" ]; then
         cp -r "$path" "$BACKUP_DIR/"
         echo "Backed up: $path"

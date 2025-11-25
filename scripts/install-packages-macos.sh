@@ -14,7 +14,6 @@ cd "$(dirname "$0")"
 . ../install/fzf-macos.sh
 . ../install/zoxide-macos.sh
 . ../install/docker-compose-macos.sh
-. ../install/zellij-macos.sh
 . ../install/wezterm-macos.sh
 . ../install/lazygit-macos.sh
 . ../install/github-cli-macos.sh
