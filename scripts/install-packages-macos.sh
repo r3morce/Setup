@@ -6,6 +6,7 @@ echo "Installing packages..."
 # This ensures ../install/ paths work regardless of where script is called from
 cd "$(dirname "$0")"
 . ../install/stow-macos.sh
+. ../install/fish-macos.sh
 . ../install/neovim-macos.sh
 . ../install/git-macos.sh
 . ../install/bat-macos.sh

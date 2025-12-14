@@ -6,6 +6,7 @@ echo "Installing packages..."
 # This ensures ../install/ paths work regardless of where script is called from
 cd "$(dirname "$0")"
 . ../install/zsh-cachyos.sh
+. ../install/fish-cachyos.sh
 . ../install/neovim-cachyos.sh
 . ../install/git-cachyos.sh
 . ../install/bat-cachyos.sh
