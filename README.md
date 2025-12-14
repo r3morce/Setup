@@ -37,14 +37,10 @@ make backup            # Backup existing configs
 **CachyOS:**
 - Package manager: `pacman` (system package manager)
 - Uses `install-packages-cachyos.sh` to orchestrate installations
-- First installs: **Zsh shell** with plugins (zsh-autosuggestions, zsh-syntax-highlighting) and powerlevel10k theme
-- Sets fish as default shell
-- Then installs all other tools (neovim, git, bat, eza, etc.)
 
 **macOS:**
 - Package manager: `brew` (Homebrew)
 - Uses `install-packages-macos.sh` to orchestrate installations  
-- Sets fish as default shell
 
 **Shared:**
 - Configuration deployment: `setup-configs.sh` (uses stow to symlink configs)
