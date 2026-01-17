@@ -8,11 +8,11 @@ if status is-interactive
     abbr ms make setup
     abbr gs git status
     abbr c clear
-    abbr ddd rm -rf ~/Library/Developer/Xcode/DerivedData/*
+    abbr ddd 'rm -rf ~/Library/Developer/Xcode/DerivedData/*'
 end
 
 zoxide init fish | source
-eval (~/.local/try.rb init ~/src/tries | string collect)
+# eval (~/.local/try.rb init ~/src/tries | string collect)
 
 test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
 
@@ -20,5 +20,5 @@ test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
-alias cp /usr/local/bin/advcp -g
-alias mv /usr/local/bin/advmv -g
+alias cp 'cp -g'
+alias mv 'mv -g'
