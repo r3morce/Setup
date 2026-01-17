@@ -19,3 +19,6 @@ test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+alias cp /usr/local/bin/advcp -g
+alias mv /usr/local/bin/advmv -g
