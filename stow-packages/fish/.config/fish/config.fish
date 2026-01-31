@@ -9,6 +9,7 @@ if status is-interactive
     abbr gs git status
     abbr c clear
     abbr ddd 'rm -rf ~/Library/Developer/Xcode/DerivedData/*'
+    abbr off 'shutdown -h now'
 end
 
 zoxide init fish | source
