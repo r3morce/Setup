@@ -1,6 +1,6 @@
 # Development Environment Setup
 
-Script-based setup system for CachyOS and macOS using Make.
+Script-based setup system for CachyOS, Nobara/Fedora, and macOS using Make.
 
 ## Quick Start
 
@@ -38,6 +38,10 @@ make backup            # Backup existing configs
 - Package manager: `pacman` (system package manager)
 - Uses `install-packages-cachyos.sh` to orchestrate installations
 
+**Nobara/Fedora:**
+- Package manager: `dnf` (system package manager)
+- Uses `install-packages-nobara.sh` to orchestrate installations
+
 **macOS:**
 - Package manager: `brew` (Homebrew)
 - Uses `install-packages-macos.sh` to orchestrate installations  
@@ -52,11 +56,12 @@ make backup            # Backup existing configs
 
 List all available packages:
 ```bash
-ls install/ | grep -E "(cachyos|macos)" | sort | uniq
+ls install/ | grep -E "(cachyos|nobara|macos)" | sort | uniq
 ```
 
 Inspect individual package installation:
 ```bash
 cat install/bat-cachyos.sh
+cat install/bat-nobara.sh
 cat install/neovim-macos.sh
 ```
