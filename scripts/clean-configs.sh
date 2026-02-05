@@ -5,8 +5,6 @@ echo "Removing existing configurations..."
 
 # Remove existing configs that might conflict with stow
 configs=(
-    "$HOME/.zshrc"
-    "$HOME/.p10k.zsh"
     "$HOME/.config/fish"
     "$HOME/.config/nvim"
     "$HOME/.wezterm.lua"

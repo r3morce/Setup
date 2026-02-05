@@ -4,13 +4,8 @@ ifeq ($(OS),Darwin)
 	SUFFIX := macos
 	OS_NAME := macOS
 else
-	# Check if we're on Nobara/Fedora
-	ifneq ($(shell which dnf 2>/dev/null),)
-		SUFFIX := nobara
-		OS_NAME := Nobara/Fedora
-	else
-		SUFFIX := cachyos
-		OS_NAME := CachyOS
+	SUFFIX := cachyos
+	OS_NAME := CachyOS
 	endif
 endif
 
