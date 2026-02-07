@@ -3,14 +3,8 @@ set -e
 
 echo "Removing existing configurations..."
 
-# Remove existing configs that might conflict with stow
 configs=(
-    "$HOME/.config/fish"
-    "$HOME/.config/nvim"
     "$HOME/.wezterm.lua"
-    "$HOME/.config/config.kdl"
-    "$HOME/.config/dev"
-    "$HOME/.config/layouts"
 )
 
 for config in "${configs[@]}"; do

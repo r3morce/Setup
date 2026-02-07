@@ -1,0 +1,15 @@
+bat
+docker-compose
+dysk
+eza
+fastfetch
+fzf
+git
+github-cli
+gping
+lazygit
+ripgrep
+wezterm
+wget
+yazi
+zoxide

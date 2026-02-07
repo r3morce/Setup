@@ -1,4 +1,3 @@
-# Detect OS
 OS := $(shell uname -s)
 ifeq ($(OS),Darwin)
 	SUFFIX := macos
@@ -6,37 +5,30 @@ ifeq ($(OS),Darwin)
 else
 	SUFFIX := cachyos
 	OS_NAME := CachyOS
-	endif
 endif
 
-.PHONY: full setup clean-configs backup help
+.PHONY: full setup clean help
 
 help:
 	@echo "$(OS_NAME) Setup"
 	@echo ""
-	@echo "Detected OS: $(OS_NAME)"
-	@echo ""
-	@echo "Targets:"
-	@echo "  full              Complete setup (wipes configs)"
-	@echo "  setup             Apply configurations only"
-	@echo "  clean-configs     Remove existing configs"
-	@echo "  backup            Backup existing configs"
-	@echo "  help              Show this help"
+	@echo "  make full     Install packages + deploy configs"
+	@echo "  make setup    Deploy configs only"
+	@echo "  make clean    Remove deployed configs"
 	@echo ""
 
 full:
-	@./scripts/install-packages-$(SUFFIX).sh || echo "Some packages may have failed to install, continuing..."
+	@./scripts/install-packages-$(SUFFIX).sh
 	@./scripts/clean-configs.sh
 	@./scripts/setup-configs.sh
-	@echo "Full setup complete. Restart terminal."
+	@./scripts/setup-git.sh
+	@echo "Done. Restart your terminal."
 
 setup:
 	@./scripts/clean-configs.sh
 	@./scripts/setup-configs.sh
-	@echo "Setup complete. Restart terminal."
+	@./scripts/setup-git.sh
+	@echo "Done. Restart your terminal."
 
-clean-configs:
+clean:
 	@./scripts/clean-configs.sh
-
-backup:
-	@./scripts/backup-configs.sh
