@@ -58,6 +58,9 @@ ENV/
 secrets/
 credentials/
 
+# Fish shell sensitive configuration
+stow-packages/fish/.config/fish/conf.d/nas-config.fish
+
 # Local configuration overrides
 *.local
 local/
